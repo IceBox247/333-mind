@@ -1,0 +1,31 @@
+name: 333 mind
+on:
+  schedule:
+    - cron: '3 */6 * * *'   # a new 6-hour shift; the last one ends just before
+  workflow_dispatch:
+concurrency:
+  group: mind
+  cancel-in-progress: false
+jobs:
+  shift:
+    runs-on: ubuntu-latest
+    timeout-minutes: 359
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --omit=dev
+      - run: npm i -g @anthropic-ai/claude-code
+      - run: mkdir -p data
+      - run: node src/cloud.mjs
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          NOCT_X_TOKEN: ${{ secrets.NOCT_X_TOKEN }}
+          NOCT_X_SECRET: ${{ secrets.NOCT_X_SECRET }}
+          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
+          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
+          STATE_GIST: ${{ secrets.STATE_GIST }}

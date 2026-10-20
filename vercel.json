@@ -1,0 +1,1 @@
+{ "outputDirectory": "site", "headers": [{ "source": "/transmissions.json", "headers": [{ "key": "cache-control", "value": "no-store" }] }] }

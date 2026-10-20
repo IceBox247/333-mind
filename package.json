@@ -1,0 +1,15 @@
+{
+  "name": "noct",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "mind": "node src/mind.mjs",
+    "mind:now": "node src/mind.mjs --now",
+    "mind:dry": "node src/mind.mjs --dry",
+    "site": "node src/serve.mjs",
+    "x-auth": "node src/x-auth.mjs"
+  },
+  "dependencies": {
+    "@resvg/resvg-js": "^2.6.2"
+  }
+}
